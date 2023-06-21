@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-// import { signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 // import useRentModal from "@/app/hooks/useRentModal";
@@ -13,6 +13,7 @@ import Avatar from "../Avatar";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useRentModal from "@/hooks/useRentModal";
+import { toast } from "react-hot-toast";
 
 interface UserMenuProps {
   //   currentUser?: SafeUser | null;
@@ -118,16 +119,36 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   label="My properties"
                   onClick={() => router.push("/properties")}
                 />
-                <MenuItem label="Airbnb your home" onClick={() => {}} />
+                <MenuItem label="Airbnb your home" onClick={rentModal.onOpen} />
                 <hr />
-                <MenuItem label="Logout" onClick={() => {}} />
+                <MenuItem
+                  label="Logout"
+                  onClick={() =>
+                    signOut({
+                      redirect: false,
+                    }).then(() => {
+                      toast.success("Logged out");
+                      router.refresh();
+                      setIsOpen(false);
+                    })
+                  }
+                />
               </>
             ) : (
               <>
-                <MenuItem label="Login" onClick={() => loginModal.onOpen()} />
+                <MenuItem
+                  label="Login"
+                  onClick={() => {
+                    loginModal.onOpen();
+                    setIsOpen(false);
+                  }}
+                />
                 <MenuItem
                   label="Sign up"
-                  onClick={() => registerModal.onOpen()}
+                  onClick={() => {
+                    registerModal.onOpen();
+                    setIsOpen(false);
+                  }}
                 />
               </>
             )}
