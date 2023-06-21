@@ -11,9 +11,11 @@ const Logo = () => {
       onClick={() => router.push("/")}
       className="hidden md:block cursor-pointer"
       src="/images/logo.png"
-      height="100"
+      height="50"
       width="100"
       alt="Logo"
+      loading="lazy"
+      style={{ objectFit: "contain" }}
     />
   );
 };

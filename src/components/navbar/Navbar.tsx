@@ -5,8 +5,6 @@ import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
-// import Search from "./Search";
-// import UserMenu from "./UserMenu";
 
 interface NavbarProps {
   //   currentUser?: SafeUser | null;

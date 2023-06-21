@@ -5,13 +5,14 @@ import { AiOutlineMenu } from "react-icons/ai";
 // import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-// import useLoginModal from "@/app/hooks/useLoginModal";
-// import useRegisterModal from "@/app/hooks/useRegisterModal";
 // import useRentModal from "@/app/hooks/useRentModal";
 // import { SafeUser } from "@/app/types";
 
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
+import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
+import useRentModal from "@/hooks/useRentModal";
 
 interface UserMenuProps {
   //   currentUser?: SafeUser | null;
@@ -21,9 +22,9 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const router = useRouter();
 
-  //   const loginModal = useLoginModal();
-  //   const registerModal = useRegisterModal();
-  //   const rentModal = useRentModal();
+  const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
+  const rentModal = useRentModal();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,14 +33,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   }, []);
 
   const onRent = useCallback(() => {
-    // if (!currentUser) {
-    //   return loginModal.onOpen();
-    // }
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
 
-    // rentModal.onOpen();
-    console.log("rental modal");
-    //   }, [loginModal, rentModal, currentUser]);
-  }, []);
+    rentModal.onOpen();
+  }, [loginModal, rentModal, currentUser]);
 
   return (
     <div className="relative">
@@ -125,8 +124,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
               </>
             ) : (
               <>
-                <MenuItem label="Login" onClick={() => {}} />
-                <MenuItem label="Sign up" onClick={() => {}} />
+                <MenuItem label="Login" onClick={() => loginModal.onOpen()} />
+                <MenuItem
+                  label="Sign up"
+                  onClick={() => registerModal.onOpen()}
+                />
               </>
             )}
           </div>
