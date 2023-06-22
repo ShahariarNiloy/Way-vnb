@@ -5,9 +5,6 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-// import useRentModal from "@/app/hooks/useRentModal";
-// import { SafeUser } from "@/app/types";
-
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
 import useLoginModal from "@/hooks/useLoginModal";
@@ -59,7 +56,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             cursor-pointer
           "
         >
-          Airbnb your home
+          Way-vnb your home
         </div>
         <div
           onClick={toggleOpen}
@@ -103,23 +100,14 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
+                <MenuItem label="My trips" href="/trips" />
+                <MenuItem label="My favorites" href="/favorites" />
+                <MenuItem label="My reservations" href="/reservations" />
+                <MenuItem label="My properties" href="/properties" />
                 <MenuItem
-                  label="My trips"
-                  onClick={() => router.push("/trips")}
+                  label="Way-vnb your home"
+                  onClick={rentModal.onOpen}
                 />
-                <MenuItem
-                  label="My favorites"
-                  onClick={() => router.push("/favorites")}
-                />
-                <MenuItem
-                  label="My reservations"
-                  onClick={() => router.push("/reservations")}
-                />
-                <MenuItem
-                  label="My properties"
-                  onClick={() => router.push("/properties")}
-                />
-                <MenuItem label="Airbnb your home" onClick={rentModal.onOpen} />
                 <hr />
                 <MenuItem
                   label="Logout"
