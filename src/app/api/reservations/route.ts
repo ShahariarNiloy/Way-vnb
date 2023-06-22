@@ -1,34 +1,37 @@
 import { NextResponse } from "next/server";
 
-import getCurrentUser from "@/actions/getCurrentUser";
 import prisma from "@/libs/prismadb";
+import getCurrentUser from "@/actions/getCurrentUser";
 
-interface IParams {
-  listingId?: string;
-}
-
-export async function DELETE(
-  request: Request,
-  { params }: { params: IParams }
-) {
+export async function POST(request: Request) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
     return NextResponse.error();
   }
 
-  const { listingId } = params;
+  const body = await request.json();
+  const { listingId, startDate, endDate, totalPrice } = body;
 
-  if (!listingId || typeof listingId !== "string") {
-    throw new Error("Invalid ID");
+  if (!listingId || !startDate || !endDate || !totalPrice) {
+    return NextResponse.error();
   }
 
-  const listing = await prisma.listing.deleteMany({
+  const listingAndReservation = await prisma.listing.update({
     where: {
       id: listingId,
-      userId: currentUser.id,
+    },
+    data: {
+      reservations: {
+        create: {
+          userId: currentUser.id,
+          startDate,
+          endDate,
+          totalPrice,
+        },
+      },
     },
   });
 
-  return NextResponse.json(listing);
+  return NextResponse.json(listingAndReservation);
 }
