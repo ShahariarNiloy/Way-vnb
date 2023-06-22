@@ -10,6 +10,7 @@ import { SafeListing, SafeReservation, SafeUser } from "@/types";
 
 import HeartButton from "../HeartButton";
 import Button from "../Button";
+import Link from "next/link";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -68,8 +69,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
   }, [reservation]);
 
   return (
-    <div
-      onClick={() => router.push(`/listings/${data.id}`)}
+    <Link
+      href={`/listings/${data.id}`}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">
@@ -123,7 +124,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           />
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 

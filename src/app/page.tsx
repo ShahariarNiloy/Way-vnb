@@ -20,7 +20,6 @@ export default async function Home({ searchParams }: HomeProps) {
       <Container>
         <div
           className="
-            pt-24
             grid 
             grid-cols-1 
             sm:grid-cols-2 
@@ -30,6 +29,7 @@ export default async function Home({ searchParams }: HomeProps) {
             2xl:grid-cols-6
             gap-8
           "
+          style={{ paddingTop: "13rem" }}
         >
           {listings.map((listing: any) => (
             <ListingCard
