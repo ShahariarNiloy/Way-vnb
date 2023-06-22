@@ -12,7 +12,7 @@ const Logo = () => {
       className="hidden md:block cursor-pointer"
       src="/images/logo.png"
       height="50"
-      width="100"
+      width="150"
       alt="Logo"
       loading="lazy"
       style={{ objectFit: "contain" }}
