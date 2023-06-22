@@ -14,10 +14,10 @@ import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useRentModal from "@/hooks/useRentModal";
 import { toast } from "react-hot-toast";
+import { SafeUser } from "@/types";
 
 interface UserMenuProps {
-  //   currentUser?: SafeUser | null;
-  currentUser?: any;
+  currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
